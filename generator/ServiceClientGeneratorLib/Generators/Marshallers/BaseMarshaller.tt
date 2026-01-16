@@ -496,6 +496,9 @@ using Amazon.Runtime.Internal.Util;
 
 	protected void GenerateRequestChecksumHandling(Operation operation, string requestContent) 
     {
+        if (operation.RequestStructure != null && this.Config.ServiceModel.Customizations.ShapeModifiers.TryGetValue(operation.RequestStructure.Name, out var modifier) && modifier.SkipChecksumDuringMarshalling)
+            return;
+
         if (operation.RequiresChecksumDuringMarshalling)
         {
             if (operation.ChecksumConfiguration != null && !string.IsNullOrEmpty(operation.ChecksumConfiguration.RequestAlgorithmMember))

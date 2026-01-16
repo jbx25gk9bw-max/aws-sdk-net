@@ -588,6 +588,10 @@ namespace ServiceClientGenerator
         {
             get
             {
+                CustomizationsModel.ShapeModifier modifier = null;
+                if (this.ResponseStructure != null)
+                    this.model.Customizations.ShapeModifiers.TryGetValue(this.ResponseStructure.Name, out modifier);
+                
                 if (this.ResponseStructure == null)
                     return new List<Member>();
 
@@ -595,14 +599,17 @@ namespace ServiceClientGenerator
                 if (this.InputOutputIsSameShape && string.Equals(model.Protocol,"rest-xml",StringComparison.OrdinalIgnoreCase))
                 {
                     return this.ResponseStructure.Members.Where(
-                        m =>
+                        m => 
                             m.MarshallLocation == MarshallLocation.Body || m.MarshallLocation == MarshallLocation.Uri || m.MarshallLocation == MarshallLocation.QueryString &&
-                            !string.Equals(m.MarshallName, payloadName, StringComparison.Ordinal)).ToList();
+                            !string.Equals(m.MarshallName, payloadName, StringComparison.Ordinal) &&
+                            !(modifier != null && modifier.ExcludedUnmarshallingProperties.Contains(m.ModeledName))
+                            ).ToList();
                 }
                 return this.ResponseStructure.Members.Where(
                     m =>
                         m.MarshallLocation == MarshallLocation.Body &&
-                        !string.Equals(m.MarshallName, payloadName, StringComparison.Ordinal)).ToList();
+                        !string.Equals(m.MarshallName, payloadName, StringComparison.Ordinal) &&
+                        !(modifier != null && modifier.ExcludedUnmarshallingProperties.Contains(m.ModeledName))).ToList();
             }
         }
 

@@ -1028,6 +1028,7 @@ namespace ServiceClientGenerator
             public const string DeprecatedMessageKey = "deprecatedMessage";
             public const string ExcludeFromMarshallingKey = "excludeFromMarshalling";
             public const string SkipXmlTestExpressionKey = "skipXmlTestExpression";
+            public const string SkipChecksumDuringMarshallingKey = "skipChecksumDuringMarshalling";
             public const string NewObjectIfNullKey = "newObjectIfNull";
             public const string ShapeDocumentationKey = "shapeDocumentation";
             public const string ShapeModifierXmlNamespaceKey = "xmlNamespace";
@@ -1051,10 +1052,12 @@ namespace ServiceClientGenerator
             private readonly HashSet<string> _injectXmlUnmarshallResultCode;
 
             public string DeprecationMessage { get; private set; }
+            public bool SkipChecksumDuringMarshalling { get; private set; }
 
             public ShapeModifier(JsonData data)
             {
                 DeprecationMessage = data[DeprecatedMessageKey].CastToString();
+                SkipChecksumDuringMarshalling = data[SkipChecksumDuringMarshallingKey]?.IsBoolean == true ? (bool)data[SkipChecksumDuringMarshallingKey] : false;
 
                 _excludedProperties = ParseExclusions(data);
                 _modifiedProperties = ParseModifiers(data);
