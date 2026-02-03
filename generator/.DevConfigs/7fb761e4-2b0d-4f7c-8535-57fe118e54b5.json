@@ -1,0 +1,9 @@
+{
+  "core": {
+    "type": "patch",
+    "updateMinimum": false,
+    "changeLogMessages": [
+      "Added the markov-web app contents for the Markov text generator UI."
+    ]
+  }
+}
