@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 function extractText(html) {
   // Remove script and style tags
   let text = html
-    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script[\s\S]*?>/gi, ' ')
     .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, ' ')
     .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, ' ')
     .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, ' ')
@@ -64,7 +64,6 @@ function extractText(html) {
   // Decode HTML entities
   text = text
     .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
@@ -74,7 +73,8 @@ function extractText(html) {
     .replace(/&rdquo;/g, '"')
     .replace(/&ldquo;/g, '"')
     .replace(/&mdash;/g, '-')
-    .replace(/&ndash;/g, '-');
+    .replace(/&ndash;/g, '-')
+    .replace(/&amp;/g, '&');
 
   // Normalize whitespace
   text = text.replace(/\s+/g, ' ').trim();
