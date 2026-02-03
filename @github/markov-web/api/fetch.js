@@ -52,11 +52,11 @@ export default async function handler(req, res) {
 function extractText(html) {
   // Remove script and style tags
   let text = html
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script[\s\S]*?>/gi, ' ')
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, ' ')
-    .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, ' ')
-    .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, ' ');
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script\b[^>]*>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style\b[^>]*>/gi, ' ')
+    .replace(/<nav\b[^>]*>[\s\S]*?<\/nav\b[^>]*>/gi, ' ')
+    .replace(/<header\b[^>]*>[\s\S]*?<\/header\b[^>]*>/gi, ' ')
+    .replace(/<footer\b[^>]*>[\s\S]*?<\/footer\b[^>]*>/gi, ' ');
 
   // Remove all HTML tags
   text = text.replace(/<[^>]+>/g, ' ');
