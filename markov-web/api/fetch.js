@@ -43,17 +43,16 @@ export default async function handler(req, res) {
 
 function extractText(html) {
   let text = html
-    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, ' ')
-    .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, ' ')
-    .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, ' ')
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script\b[^>]*>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style\b[^>]*>/gi, ' ')
+    .replace(/<nav\b[^>]*>[\s\S]*?<\/nav\b[^>]*>/gi, ' ')
+    .replace(/<header\b[^>]*>[\s\S]*?<\/header\b[^>]*>/gi, ' ')
+    .replace(/<footer\b[^>]*>[\s\S]*?<\/footer\b[^>]*>/gi, ' ')
 
   text = text.replace(/<[^>]+>/g, ' ')
 
   text = text
     .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
@@ -64,6 +63,7 @@ function extractText(html) {
     .replace(/&ldquo;/g, '"')
     .replace(/&mdash;/g, '-')
     .replace(/&ndash;/g, '-')
+    .replace(/&amp;/g, '&')
 
   text = text.replace(/\s+/g, ' ').trim()
 
