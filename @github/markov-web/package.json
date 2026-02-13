@@ -1,0 +1,6 @@
+{
+  "name": "markov-web",
+  "version": "1.0.0",
+  "description": "1st-order Markov text generator from URLs",
+  "private": true
+}
