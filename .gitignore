@@ -72,3 +72,5 @@ sdk/test/ProtocolTests/Generated/**/sources
 sdk/test/ProtocolTests/Generated/**/build-info
 
 .DS_Store
+markov-web/node_modules
+markov-web/dist

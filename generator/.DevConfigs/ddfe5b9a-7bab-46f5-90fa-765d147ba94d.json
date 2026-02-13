@@ -1,0 +1,9 @@
+{
+  "core": {
+    "type": "patch",
+    "updateMinimum": false,
+    "changeLogMessages": [
+      "Added a Vite-based Markov text generator demo app under markov-web."
+    ]
+  }
+}
